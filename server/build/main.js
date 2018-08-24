@@ -81,7 +81,7 @@ module.exports = require("mongoose");
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(14);
+module.exports = __webpack_require__(15);
 
 
 /***/ }),
@@ -151,21 +151,21 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _cors = __webpack_require__(24);
+var _cors = __webpack_require__(8);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-__webpack_require__(8);
+__webpack_require__(9);
 
-var _db = __webpack_require__(9);
+var _db = __webpack_require__(10);
 
-var _api = __webpack_require__(10);
+var _api = __webpack_require__(11);
 
 var _passport = __webpack_require__(5);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(22);
+var _passportJwt = __webpack_require__(27);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -188,17 +188,23 @@ app.get("/", function (req, res) {
 app.use("/api", _api.restRouter);
 
 app.listen(port, function () {
-    console.log("Le server fonctionne!");
+    console.log("Le server " + port + " fonctionne!");
 });
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("dotenv/config");
+module.exports = require("cors");
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("dotenv/config");
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -231,7 +237,7 @@ var connect = exports.connect = function connect() {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,9 +252,9 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _articles = __webpack_require__(11);
+var _articles = __webpack_require__(12);
 
-var _users = __webpack_require__(17);
+var _users = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -258,7 +264,7 @@ restRouter.use("/articles", _articles.articleRouter);
 restRouter.use("/users", _users.userRouter);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -268,7 +274,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _article = __webpack_require__(12);
+var _article = __webpack_require__(13);
 
 Object.defineProperty(exports, "articleRouter", {
   enumerable: true,
@@ -278,7 +284,7 @@ Object.defineProperty(exports, "articleRouter", {
 });
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -293,7 +299,7 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _article = __webpack_require__(13);
+var _article = __webpack_require__(14);
 
 var _article2 = _interopRequireDefault(_article);
 
@@ -307,7 +313,7 @@ articleRouter.get("/", _article2.default.findAll);
 articleRouter.route("/:id").get(_article2.default.findOne).put(_article2.default.update).delete(_article2.default.delete);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -321,7 +327,7 @@ var _regenerator = __webpack_require__(2);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _article = __webpack_require__(16);
+var _article = __webpack_require__(17);
 
 var _article2 = _interopRequireDefault(_article);
 
@@ -567,7 +573,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -592,7 +598,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(16);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -608,7 +614,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -1341,7 +1347,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1369,7 +1375,7 @@ var articleSchema = new Schema({
 exports.default = _mongoose2.default.model("Article", articleSchema);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1379,7 +1385,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _user = __webpack_require__(18);
+var _user = __webpack_require__(19);
 
 Object.defineProperty(exports, "userRouter", {
   enumerable: true,
@@ -1389,7 +1395,7 @@ Object.defineProperty(exports, "userRouter", {
 });
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1404,7 +1410,7 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _user = __webpack_require__(19);
+var _user = __webpack_require__(20);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -1413,9 +1419,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var userRouter = exports.userRouter = _express2.default.Router();
 
 userRouter.post("/signup", _user2.default.signup);
+userRouter.post('/login', _user2.default.login);
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1433,11 +1440,11 @@ var _user = __webpack_require__(3);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _user3 = __webpack_require__(25);
+var _user3 = __webpack_require__(21);
 
 var _user4 = _interopRequireDefault(_user3);
 
-var _jwt = __webpack_require__(20);
+var _jwt = __webpack_require__(25);
 
 var _jwt2 = _interopRequireDefault(_jwt);
 
@@ -1519,102 +1526,82 @@ exports.default = {
         }
 
         return signup;
+    }(),
+    login: function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res) {
+            var _userService$validate2, errors, isValid, user, authenticated, token;
+
+            return _regenerator2.default.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            _context2.prev = 0;
+                            _userService$validate2 = _user4.default.validateLogin(req.body), errors = _userService$validate2.errors, isValid = _userService$validate2.isValid;
+
+                            if (isValid) {
+                                _context2.next = 4;
+                                break;
+                            }
+
+                            return _context2.abrupt("return", res.status(400).json(errors));
+
+                        case 4:
+                            _context2.next = 6;
+                            return _user2.default.findOne({ email: req.body.email });
+
+                        case 6:
+                            user = _context2.sent;
+
+                            if (user) {
+                                _context2.next = 9;
+                                break;
+                            }
+
+                            return _context2.abrupt("return", res.status(401).json({ email: "Utilisateur non trouvé" }));
+
+                        case 9:
+                            authenticated = _user4.default.comparePassword(req.body.password, user.password);
+
+                            if (authenticated) {
+                                _context2.next = 12;
+                                break;
+                            }
+
+                            return _context2.abrupt("return", res.status(401).json({ password: "Mauvais mot de passe" }));
+
+                        case 12:
+                            token = _jwt2.default.issue({
+                                id: user._id,
+                                firstName: user.firstName,
+                                email: user.email
+                            }, '1d');
+                            return _context2.abrupt("return", res.json({ token: token }));
+
+                        case 16:
+                            _context2.prev = 16;
+                            _context2.t0 = _context2["catch"](0);
+
+                            console.error(_context2.t0);
+                            return _context2.abrupt("return", res.status(500).send(_context2.t0));
+
+                        case 20:
+                        case "end":
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, this, [[0, 16]]);
+        }));
+
+        function login(_x3, _x4) {
+            return _ref2.apply(this, arguments);
+        }
+
+        return login;
     }()
 };
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _jsonwebtoken = __webpack_require__(21);
-
-var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
-
-var _development = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    issue: function issue(payload, expiresIn) {
-        return _jsonwebtoken2.default.sign(payload, _development.devConfig.secret, {
-            expiresIn: expiresIn
-        });
-    }
-};
-
-/***/ }),
 /* 21 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.configJWTStrategy = undefined;
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _passportJwt = __webpack_require__(23);
-
-var _passportJwt2 = _interopRequireDefault(_passportJwt);
-
-var _development = __webpack_require__(4);
-
-var _user = __webpack_require__(3);
-
-var _user2 = _interopRequireDefault(_user);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var configJWTStrategy = exports.configJWTStrategy = function configJWTStrategy() {
-    var opts = {
-        jwtFromRequest: _passportJwt2.default.ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: _development.devConfig.secret
-    };
-    _passport2.default.use(new _passportJwt2.default.Strategy(opts, function (paylod, done) {
-        _user2.default.findOne({ _id: paylod.id }, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (user) {
-                return done(null, user);
-            }
-            return done(null, false);
-        });
-    }));
-};
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport-jwt");
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("cors");
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1624,15 +1611,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _validator = __webpack_require__(26);
+var _validator = __webpack_require__(22);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _isEmpty = __webpack_require__(27);
+var _isEmpty = __webpack_require__(23);
 
 var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
-var _bcryptjs = __webpack_require__(28);
+var _bcryptjs = __webpack_require__(24);
 
 var _bcryptjs2 = _interopRequireDefault(_bcryptjs);
 
@@ -1682,17 +1669,39 @@ exports.default = {
             errors: errors,
             isValid: (0, _isEmpty2.default)(errors)
         };
+    },
+    validateLogin: function validateLogin(body) {
+
+        var errors = {};
+
+        body.email = !(0, _isEmpty2.default)(body.email) ? body.email : "";
+        body.password = !(0, _isEmpty2.default)(body.password) ? body.password : "";
+
+        if (!_validator2.default.isEmail(body.email)) {
+            errors.email = "L'email est invalide.";
+        }
+        if (_validator2.default.isEmpty(body.email)) {
+            errors.email = "Ton email est requis.";
+        }
+        if (_validator2.default.isEmpty(body.password)) {
+            errors.password = "Ton mot de passe est requis.";
+        }
+
+        return {
+            errors: errors,
+            isValid: (0, _isEmpty2.default)(errors)
+        };
     }
 };
 
 /***/ }),
-/* 26 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 27 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1707,10 +1716,95 @@ var isEmpty = function isEmpty(value) {
 module.exports = isEmpty;
 
 /***/ }),
-/* 28 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcryptjs");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _jsonwebtoken = __webpack_require__(26);
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _development = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    issue: function issue(payload, expiresIn) {
+        return _jsonwebtoken2.default.sign(payload, _development.devConfig.secret, {
+            expiresIn: expiresIn
+        });
+    }
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.configJWTStrategy = undefined;
+
+var _passport = __webpack_require__(5);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportJwt = __webpack_require__(28);
+
+var _passportJwt2 = _interopRequireDefault(_passportJwt);
+
+var _development = __webpack_require__(4);
+
+var _user = __webpack_require__(3);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var configJWTStrategy = exports.configJWTStrategy = function configJWTStrategy() {
+    var opts = {
+        jwtFromRequest: _passportJwt2.default.ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: _development.devConfig.secret
+    };
+    _passport2.default.use(new _passportJwt2.default.Strategy(opts, function (paylod, done) {
+        _user2.default.findOne({ _id: paylod.id }, function (err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (user) {
+                return done(null, user);
+            }
+            return done(null, false);
+        });
+    }));
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-jwt");
 
 /***/ })
 /******/ ]);

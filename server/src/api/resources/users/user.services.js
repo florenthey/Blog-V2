@@ -50,4 +50,27 @@ export default {
                     isValid: isEmpty(errors)
                 }
     },
+
+    validateLogin(body) {
+
+        let errors = {};
+
+    body.email = !isEmpty(body.email) ? body.email : "";
+    body.password = !isEmpty(body.password) ? body.password : "";
+    
+    if(!validator.isEmail(body.email)) {
+        errors.email = "L'email est invalide.";
+    }
+    if(validator.isEmpty(body.email)) {
+        errors.email = "Ton email est requis.";
+    }
+    if(validator.isEmpty(body.password)) {
+        errors.password = "Ton mot de passe est requis.";
+    }
+
+    return {
+        errors,
+        isValid: isEmpty(errors)
+        }
+}
 }

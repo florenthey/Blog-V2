@@ -26,5 +26,5 @@ app.use("/api", restRouter)
 
 
 app.listen(port, () => {
-    console.log("Le server fonctionne!")
+    console.log(`Le server ${port} fonctionne!`)
 })

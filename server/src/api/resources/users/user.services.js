@@ -42,7 +42,7 @@ export default {
                 errors.password2 = "Confirme ton mot de passe";
             }
             if(!validator.equals(body.password, body.password2)) {
-                errors.password2 = "Tes mots ne passe de sont pas identiques.";
+                errors.password2 = "Tes mots de passe ne sont pas identiques.";
             }
 
                 return {

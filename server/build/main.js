@@ -256,12 +256,15 @@ var _articles = __webpack_require__(12);
 
 var _users = __webpack_require__(18);
 
+var _profils = __webpack_require__(29);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var restRouter = exports.restRouter = _express2.default.Router();
 
 restRouter.use("/articles", _articles.articleRouter);
 restRouter.use("/users", _users.userRouter);
+restRouter.use("profils", _profils.profilRouter);
 
 /***/ }),
 /* 12 */
@@ -1805,6 +1808,262 @@ var configJWTStrategy = exports.configJWTStrategy = function configJWTStrategy()
 /***/ (function(module, exports) {
 
 module.exports = require("passport-jwt");
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _profil = __webpack_require__(30);
+
+Object.defineProperty(exports, "profilRouter", {
+  enumerable: true,
+  get: function get() {
+    return _profil.profilRouter;
+  }
+});
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.profilRouter = undefined;
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _profil = __webpack_require__(31);
+
+var _profil2 = _interopRequireDefault(_profil);
+
+var _passport = __webpack_require__(5);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var profilRouter = exports.profilRouter = _express2.default.Router();
+
+profilRouter.get('/me', _passport2.default.authenticate("jwt", { session: false }), _profil2.default.findLogedUser);
+profilRouter.post('/', _passport2.default.authenticate("jwt", { session: false }), _profil2.default.create);
+profilRouter.delete('/', _passport2.default.authenticate("jwt", { session: false }), _profil2.default.delete);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(2);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _profil = __webpack_require__(32);
+
+var _profil2 = _interopRequireDefault(_profil);
+
+var _user = __webpack_require__(3);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+exports.default = {
+  findLogedUser: function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res) {
+      var profil;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _profil2.default.findOne({ user: req.user.id }).populate("user", ["firstName", "lastName"]);
+
+            case 3:
+              profil = _context.sent;
+
+              if (profil) {
+                _context.next = 6;
+                break;
+              }
+
+              return _context.abrupt("return", res.status(404).json({ err: 'Pas la peine de créer un profil' }));
+
+            case 6:
+              return _context.abrupt("return", res.json(profil));
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+
+              console.error(_context.t0);
+              return _context.abrupt("return", res.status(500).send(_context.t0));
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[0, 9]]);
+    }));
+
+    function findLogedUser(_x, _x2) {
+      return _ref.apply(this, arguments);
+    }
+
+    return findLogedUser;
+  }(),
+  create: function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res) {
+      var profileFields;
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              profileFields = {};
+
+              profileFields.user = req.user.id;
+
+              if (req.body.phone) profileFields.phone = req.body.phone;
+
+              _profil2.default.findOne({ user: req.user.id }).then(function (profil) {
+
+                if (profil) {
+                  _profil2.default.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true }).then(function (profil) {
+                    return res.json(profil);
+                  });
+                } else {
+                  _profil2.default.findOne({ nom: profileFields.email }).then(function (profil) {
+                    if (profil) {
+                      errors.email = 'Ce profil avec ces informations existe déjà';
+                      res.status(400).json(errors);
+                    }
+
+                    new _profil2.default(profileFields).save().then(function (profil) {
+                      return res.json(profil);
+                    });
+                  });
+                }
+              });
+
+              _context2.next = 11;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](0);
+
+              console.error(_context2.t0);
+              return _context2.abrupt("return", res.status(500).send(_context2.t0));
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this, [[0, 7]]);
+    }));
+
+    function create(_x3, _x4) {
+      return _ref2.apply(this, arguments);
+    }
+
+    return create;
+  }(),
+  delete: function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(req, res) {
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+
+              _profil2.default.findOneAndRemove({ user: req.user.id }).then(function () {
+                _user2.default.findOneAndRemove({ _id: req.user.id }).then(function () {
+                  res.json({ success: true });
+                });
+              });
+              _context3.next = 8;
+              break;
+
+            case 4:
+              _context3.prev = 4;
+              _context3.t0 = _context3["catch"](0);
+
+              console.error(_context3.t0);
+              return _context3.abrupt("return", res.status(500).send(_context3.t0));
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[0, 4]]);
+    }));
+
+    function _delete(_x5, _x6) {
+      return _ref3.apply(this, arguments);
+    }
+
+    return _delete;
+  }()
+};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Schema = _mongoose2.default.Schema;
+
+
+var profilSchema = new Schema({
+
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    },
+    phone: {
+        type: String,
+        required: true
+    }
+});
+
+exports.default = _mongoose2.default.model("Profil", profilSchema);
 
 /***/ })
 /******/ ]);

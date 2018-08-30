@@ -7,6 +7,14 @@ import Login from './components/Login/Login'
 
 
 class App extends Component {
+  
+  state = {
+    formSignup: {}
+  }
+
+  SignupConnect = () => {
+
+  }
 
   render() {
 

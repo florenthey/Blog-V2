@@ -4,24 +4,20 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
+import ArticleForm from './components/Article/ArticleForm'
+import Articles from './components/Article/Articles'
 
 
 class App extends Component {
-  
-  state = {
-    formSignup: {}
-  }
-
-  SignupConnect = () => {
-
-  }
 
   render() {
-
+    
     return (
       <BrowserRouter>
       <div className="App">
         <Navbar/>
+          <Route exact path="/" component={ Articles }/>
+          <Route exact path="/articles" component={ ArticleForm }/>
           <Route exact path="/signup" component={ Signup }/>
           <Route exact path="/login" component={ Login }/>
       </div>

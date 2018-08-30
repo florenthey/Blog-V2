@@ -32,9 +32,10 @@ function Navbar(props) {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Link className="linkstyle" to="/articles">News</Link>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Vo Vietnam SLQT Paris
+          <Link className="linkstyle" to="/">News</Link>
+          <Link className="linkstyle" to="/articles">Add</Link>
+          <Typography id="blogTitle" variant="title" color="inherit" className={classes.flex}>
+            Vo  Vietnam  SLQT  Paris
           </Typography>
           <Link className="linkstyle" to="/signup">SIGNUP</Link>
           <Link className="linkstyle" to="/login">LOGIN</Link>

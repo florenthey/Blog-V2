@@ -115,6 +115,12 @@ exports.default = _mongoose2.default.model("User", userSchema);
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -126,12 +132,6 @@ Object.defineProperty(exports, "__esModule", {
 var devConfig = exports.devConfig = {
     secret: '%SuPeR_T0keN'
 };
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport");
 
 /***/ }),
 /* 6 */
@@ -161,11 +161,11 @@ var _db = __webpack_require__(10);
 
 var _api = __webpack_require__(11);
 
-var _passport = __webpack_require__(5);
+var _passport = __webpack_require__(4);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(27);
+var _passportJwt = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -256,7 +256,7 @@ var _articles = __webpack_require__(12);
 
 var _users = __webpack_require__(18);
 
-var _profils = __webpack_require__(29);
+var _profils = __webpack_require__(27);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1739,7 +1739,7 @@ var _jsonwebtoken = __webpack_require__(26);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _development = __webpack_require__(4);
+var _development = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1765,62 +1765,10 @@ module.exports = require("jsonwebtoken");
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.configJWTStrategy = undefined;
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _passportJwt = __webpack_require__(28);
-
-var _passportJwt2 = _interopRequireDefault(_passportJwt);
-
-var _development = __webpack_require__(4);
-
-var _user = __webpack_require__(3);
-
-var _user2 = _interopRequireDefault(_user);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var configJWTStrategy = exports.configJWTStrategy = function configJWTStrategy() {
-    var opts = {
-        jwtFromRequest: _passportJwt2.default.ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: _development.devConfig.secret
-    };
-    _passport2.default.use(new _passportJwt2.default.Strategy(opts, function (paylod, done) {
-        _user2.default.findOne({ _id: paylod.id }, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (user) {
-                return done(null, user);
-            }
-            return done(null, false);
-        });
-    }));
-};
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport-jwt");
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _profil = __webpack_require__(30);
+var _profil = __webpack_require__(28);
 
 Object.defineProperty(exports, "profilRouter", {
   enumerable: true,
@@ -1830,7 +1778,7 @@ Object.defineProperty(exports, "profilRouter", {
 });
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1845,11 +1793,11 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _profil = __webpack_require__(31);
+var _profil = __webpack_require__(29);
 
 var _profil2 = _interopRequireDefault(_profil);
 
-var _passport = __webpack_require__(5);
+var _passport = __webpack_require__(4);
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -1862,7 +1810,7 @@ profilRouter.post('/', _passport2.default.authenticate("jwt", { session: false }
 profilRouter.delete('/', _passport2.default.authenticate("jwt", { session: false }), _profil2.default.delete);
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1876,7 +1824,7 @@ var _regenerator = __webpack_require__(2);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _profil = __webpack_require__(32);
+var _profil = __webpack_require__(30);
 
 var _profil2 = _interopRequireDefault(_profil);
 
@@ -2032,7 +1980,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2064,6 +2012,58 @@ var profilSchema = new Schema({
 });
 
 exports.default = _mongoose2.default.model("Profil", profilSchema);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.configJWTStrategy = undefined;
+
+var _passport = __webpack_require__(4);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportJwt = __webpack_require__(32);
+
+var _passportJwt2 = _interopRequireDefault(_passportJwt);
+
+var _development = __webpack_require__(5);
+
+var _user = __webpack_require__(3);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var configJWTStrategy = exports.configJWTStrategy = function configJWTStrategy() {
+    var opts = {
+        jwtFromRequest: _passportJwt2.default.ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: _development.devConfig.secret
+    };
+    _passport2.default.use(new _passportJwt2.default.Strategy(opts, function (paylod, done) {
+        _user2.default.findOne({ _id: paylod.id }, function (err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (user) {
+                return done(null, user);
+            }
+            return done(null, false);
+        });
+    }));
+};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-jwt");
 
 /***/ })
 /******/ ]);
